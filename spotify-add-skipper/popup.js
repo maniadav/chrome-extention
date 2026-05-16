@@ -1,9 +1,3 @@
-/**
- * Spotify Ad Skipper — Popup Script
- *
- * Manages the toggle state and displays skip count.
- */
-
 document.addEventListener("DOMContentLoaded", () => {
   const toggleBtn = document.getElementById("toggle-btn");
   const statusText = document.getElementById("status-text");
@@ -21,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "adSkipperEnabled",
       "skipCount",
     ]);
+    // Default to enabled on first install before background sets the key
     const isEnabled = result.adSkipperEnabled ?? true;
     const count = result.skipCount ?? 0;
 

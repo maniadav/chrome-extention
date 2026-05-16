@@ -1,14 +1,7 @@
-/**
- * Spotify Ad Skipper — Background Service Worker
- *
- * Handles tab refresh requests from the content script
- * and manages the extension badge/state.
- */
-
 const STORAGE_KEY = "adSkipperEnabled";
 const REFRESH_COOLDOWN_MS = 5000;
 
-/** Track per-tab cooldown to prevent rapid re-refreshes */
+// Prevents content script firing multiple AD_DETECTED before reload completes
 const recentRefreshes = new Map();
 
 chrome.runtime.onInstalled.addListener(() => {
@@ -16,6 +9,7 @@ chrome.runtime.onInstalled.addListener(() => {
   updateBadge(true);
 });
 
+// return true in each branch to keep sendResponse channel open for async replies
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === "AD_DETECTED" && sender.tab?.id) {
     handleAdDetected(sender.tab.id);
@@ -36,8 +30,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       chrome.storage.local.set({ [STORAGE_KEY]: newState });
       updateBadge(newState);
       sendResponse({ isEnabled: newState });
-
-      // Notify all Spotify tabs about the state change
       broadcastStateChange(newState);
     });
     return true;
@@ -54,15 +46,14 @@ async function handleAdDetected(tabId) {
   const result = await chrome.storage.local.get(STORAGE_KEY);
   if (!(result[STORAGE_KEY] ?? true)) return;
 
-  // Prevent rapid re-refreshes on the same tab
+  // Debounce — content script can detect the same ad multiple times before reload
   const now = Date.now();
   const lastRefresh = recentRefreshes.get(tabId) ?? 0;
   if (now - lastRefresh < REFRESH_COOLDOWN_MS) return;
   recentRefreshes.set(tabId, now);
 
-  // Set flag so content script auto-plays after reload
+  // Content script reads this flag after reload to trigger auto-play
   await chrome.storage.local.set({ pendingAutoPlay: true });
-
   chrome.tabs.reload(tabId);
 }
 
@@ -83,12 +74,11 @@ async function broadcastStateChange(isEnabled) {
   const tabs = await chrome.tabs.query({ url: "https://open.spotify.com/*" });
   for (const tab of tabs) {
     if (tab.id) {
+      // Tabs without injected content script will reject — safe to ignore
       chrome.tabs.sendMessage(tab.id, {
         type: "STATE_CHANGED",
         isEnabled,
-      }).catch(() => {
-        // Tab may not have content script loaded yet
-      });
+      }).catch(() => {});
     }
   }
 }
