@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spotify Ad Skipper</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="logo-row">
+          <svg class="logo" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-0.24 0.359-0.66 0.48-1.021 0.24-2.82-1.74-6.36-2.101-10.561-1.141-0.418 0.122-0.779-0.179-0.899-0.539-0.12-0.421 0.18-0.78 0.54-0.9 4.56-1.021 8.52-0.6 11.64 1.32 0.42 0.18 0.479 0.659 0.301 1.02zm1.44-3.3c-0.301 0.42-0.841 0.6-1.262 0.3-3.239-1.98-8.159-2.58-11.939-1.38-0.479 0.12-1.02-0.12-1.14-0.6-0.12-0.48 0.12-1.021 0.6-1.141 4.32-1.32 9.72-0.659 13.44 1.621 0.361 0.181 0.54 0.78 0.241 1.2zm0.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-0.6 0.179-1.2-0.181-1.38-0.721-0.18-0.601 0.18-1.2 0.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621 0.539 0.3 0.719 1.02 0.419 1.56-0.299 0.421-1.02 0.599-1.559 0.3z" fill="#1DB954"/>
+          </svg>
+          <h1>Ad Skipper</h1>
+        </div>
+        <p class="subtitle">Auto-skip Spotify ads</p>
+      </div>
+
+      <div class="toggle-section">
+        <span class="toggle-label" id="status-text">Loading...</span>
+        <button class="toggle-btn" id="toggle-btn" aria-label="Toggle ad skipper">
+          <span class="toggle-knob"></span>
+        </button>
+      </div>
+
+      <div class="stats-section">
+        <div class="stat">
+          <span class="stat-value" id="skip-count">0</span>
+          <span class="stat-label">Ads Skipped</span>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p>Works on <a href="https://open.spotify.com" target="_blank">open.spotify.com</a></p>
+      </div>
+    </div>
+    <script src="popup.js"></script>
+  </body>
+</html>

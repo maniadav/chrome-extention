@@ -1,0 +1,147 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family:
+    "Segoe UI",
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  background: #121212;
+  color: #ffffff;
+  width: 280px;
+  overflow: hidden;
+}
+
+.container {
+  padding: 20px;
+}
+
+.header {
+  margin-bottom: 20px;
+}
+
+.logo-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.logo {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+h1 {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  color: #ffffff;
+}
+
+.subtitle {
+  font-size: 12px;
+  color: #a7a7a7;
+  margin-left: 38px;
+}
+
+.toggle-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #1a1a1a;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+}
+
+.toggle-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #b3b3b3;
+}
+
+.toggle-btn {
+  position: relative;
+  width: 48px;
+  height: 26px;
+  background: #404040;
+  border: none;
+  border-radius: 13px;
+  cursor: pointer;
+  transition: background 0.25s ease;
+  padding: 0;
+}
+
+.toggle-btn.active {
+  background: #1db954;
+}
+
+.toggle-knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  background: #ffffff;
+  border-radius: 50%;
+  transition: transform 0.25s ease;
+  pointer-events: none;
+}
+
+.toggle-btn.active .toggle-knob {
+  transform: translateX(22px);
+}
+
+.stats-section {
+  display: flex;
+  justify-content: center;
+  background: #1a1a1a;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.stat-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1db954;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: #a7a7a7;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.footer {
+  text-align: center;
+}
+
+.footer p {
+  font-size: 11px;
+  color: #666;
+}
+
+.footer a {
+  color: #1db954;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
